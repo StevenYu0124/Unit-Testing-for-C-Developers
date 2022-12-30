@@ -39,4 +39,14 @@ public class MathTests
         // assert
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void GetOddNumbers_GivenLimit_ReturnOddNumbers()
+    {
+        // act
+        var actual = _math.GetOddNumbers(10);
+
+        // assert
+        Assert.That(actual, Is.EqualTo(new []{1, 3, 5, 7, 9}));
+    }
 }
