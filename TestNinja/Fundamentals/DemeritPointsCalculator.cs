@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestNinja.Fundamentals
+﻿namespace TestNinja.Fundamentals
 {
     public class DemeritPointsCalculator
     {
