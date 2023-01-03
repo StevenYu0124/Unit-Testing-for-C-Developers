@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿#nullable disable
+#pragma warning disable SYSLIB0014, CS0649
+using System.Net;
 
 namespace TestNinja.Mocking
 {

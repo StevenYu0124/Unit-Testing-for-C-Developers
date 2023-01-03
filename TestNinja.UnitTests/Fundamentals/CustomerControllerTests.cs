@@ -1,6 +1,6 @@
-namespace TestNinja.UnitTests;
+namespace TestNinja.UnitTests.Fundamentals;
 
-public class CustomerControllerTest
+public class CustomerControllerTests
 {
     [Test]
     public void GetCustomer_GivenIdNot0_ReturnOk()

@@ -1,3 +1,5 @@
+namespace TestNinja.UnitTests.Fundamentals;
+
 public class DemeritPointsCalculatorTests
 {
     [TestCase(-1)]

@@ -1,4 +1,4 @@
-namespace TestNinja.UnitTests;
+namespace TestNinja.UnitTests.Fundamentals;
 
 public class StackTests
 {
@@ -6,7 +6,7 @@ public class StackTests
     public void Count_EmptyStack_ReturnZero()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
 
         // act & assert
         Assert.That(stack.Count, Is.Zero);
@@ -17,7 +17,7 @@ public class StackTests
     public void Push_WhenCalled_CountPlusOne()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
 
         // act
         stack.Push("test");
@@ -30,7 +30,7 @@ public class StackTests
     public void Push_GivenNull_ThrowsArgumentNullException()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
 
         // act & assert
         Assert.That(() =>
@@ -43,7 +43,7 @@ public class StackTests
     public void Pop_WhenStackIsNotEmpty_ReturnLastItemFromStack()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
         var secondItem = "second";
         stack.Push("first");
         stack.Push(secondItem);
@@ -59,7 +59,7 @@ public class StackTests
     public void Pop_WhenStackIsNotEmpty_RemoveLastItemFromStack()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
         var secondItem = "second";
         stack.Push("first");
         stack.Push(secondItem);
@@ -75,7 +75,7 @@ public class StackTests
     public void Pop_WhenStackIsEmpty_ThrowsInvalidOperationException()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
 
         // act & assert
         Assert.That(() =>
@@ -88,7 +88,7 @@ public class StackTests
     public void Peek_WhenStackIsNotEmpty_ReturnLastItemFromStack()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
         var secondItem = "second";
         stack.Push("first");
         stack.Push(secondItem);
@@ -104,7 +104,7 @@ public class StackTests
     public void Peek_WhenStackIsNotEmpty_NotRemoveLastItemFromStack()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
         var secondItem = "second";
         stack.Push("first");
         stack.Push(secondItem);
@@ -120,7 +120,7 @@ public class StackTests
     public void Peek_WhenStackIsEmpty_ThrowsInvalidOperationException()
     {
         // arrange
-        var stack = new Fundamentals.Stack<string>();
+        var stack = new TestNinja.Fundamentals.Stack<string>();
 
         // act & assert
         Assert.That(() =>

@@ -1,5 +1,5 @@
 #nullable disable
-namespace TestNinja.UnitTests;
+namespace TestNinja.UnitTests.Fundamentals;
 
 public class MathTests
 {

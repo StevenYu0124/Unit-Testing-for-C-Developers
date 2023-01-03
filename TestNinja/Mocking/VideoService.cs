@@ -1,14 +1,24 @@
 ﻿#nullable disable
-using Microsoft.EntityFrameworkCore;
+
 using Newtonsoft.Json;
 
 namespace TestNinja.Mocking
 {
     public class VideoService
     {
+        private readonly IVideoRepository _videoRepository;
+        private readonly IFileReader _fileReader;
+        public VideoService(
+            IVideoRepository videoRepository,
+            IFileReader fileReader)
+        {
+            _videoRepository = videoRepository;
+            _fileReader = fileReader;
+        }
+
         public string ReadVideoTitle()
         {
-            var str = File.ReadAllText("video.txt");
+            var str = _fileReader.ReadAllText("video.txt");
             var video = JsonConvert.DeserializeObject<Video>(str);
             if (video == null)
                 return "Error parsing the video.";
@@ -19,18 +29,12 @@ namespace TestNinja.Mocking
         {
             var videoIds = new List<int>();
             
-            using (var context = new VideoContext())
-            {
-                var videos = 
-                    (from video in context.Videos
-                    where !video.IsProcessed
-                    select video).ToList();
+            var videos = _videoRepository.GetUnprocessedVideos();
                 
-                foreach (var v in videos)
-                    videoIds.Add(v.Id);
+            foreach (var v in videos)
+                videoIds.Add(v.Id);
 
-                return String.Join(",", videoIds);
-            }
+            return String.Join(",", videoIds);
         }
     }
 
@@ -39,10 +43,5 @@ namespace TestNinja.Mocking
         public int Id { get; set; }
         public string Title { get; set; }
         public bool IsProcessed { get; set; }
-    }
-
-    public class VideoContext : DbContext
-    {
-        public DbSet<Video> Videos { get; set; }
     }
 }
