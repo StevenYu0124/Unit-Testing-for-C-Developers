@@ -7,25 +7,28 @@ namespace TestNinja.Mocking
         private readonly IHousekeeperRepository _housekeeperRepository;
         private readonly IStatementHelper _statementHelper;
         private readonly IEmailHelper _emailHelper;
+        private readonly IXtraMessageBox _xtraMessageBox;
 
         public HousekeeperHelper(
             IHousekeeperRepository housekeeperRepository,
             IStatementHelper statementHelper,
-            IEmailHelper emailHelper
+            IEmailHelper emailHelper,
+            IXtraMessageBox xtraMessageBox
             )
         {
             _housekeeperRepository = housekeeperRepository;
             _statementHelper = statementHelper;
             _emailHelper = emailHelper;
+            _xtraMessageBox = xtraMessageBox;
         }
 
-        public bool SendStatementEmails(DateTime statementDate)
+        public void SendStatementEmails(DateTime statementDate)
         {
             var housekeepers = _housekeeperRepository.GetQueryableHouseKeepers();
 
             foreach (var housekeeper in housekeepers)
             {
-                if (housekeeper.Email == null)
+                if (string.IsNullOrWhiteSpace(housekeeper.Email))
                     continue;
 
                 var statementFilename = _statementHelper.Save(housekeeper.Oid, housekeeper.FullName, statementDate);
@@ -43,12 +46,10 @@ namespace TestNinja.Mocking
                 }
                 catch (Exception e)
                 {
-                    XtraMessageBox.Show(e.Message, string.Format("Email failure: {0}", emailAddress),
+                    _xtraMessageBox.Show(e.Message, string.Format("Email failure: {0}", emailAddress),
                         MessageBoxButtons.OK);
                 }
             }
-
-            return true;
         }
     }
 
@@ -57,9 +58,14 @@ namespace TestNinja.Mocking
         OK
     }
 
-    public class XtraMessageBox
+    public interface IXtraMessageBox
     {
-        public static void Show(string s, string housekeeperStatements, MessageBoxButtons ok)
+        void Show(string s, string housekeeperStatements, MessageBoxButtons ok);
+    }
+
+    public class XtraMessageBox : IXtraMessageBox
+    {
+        public void Show(string s, string housekeeperStatements, MessageBoxButtons ok)
         {
         }
     }
